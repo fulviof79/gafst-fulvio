@@ -1,0 +1,19 @@
+{% extends "structure/page_base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Competizioni aperte i18n" %}{% endblock %}
+
+{% block content %}
+
+    {% comment %}
+        template variables:
+            card_title, (required)
+            card_body_url, (required)
+            list_changed_event, (required)
+            row_css_classes, (optional)
+    {% endcomment %}
+    {% with row_css_classes=None %}
+        {% include "admin/structure/card.html"%}
+    {% endwith %}
+
+{% endblock content %}

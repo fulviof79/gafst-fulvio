@@ -1,0 +1,32 @@
+{% load i18n %}
+{% load l10n %}
+<form id="create-form" hx-post="{{ request.path }}" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' class="modal-content" enctype="multipart/form-data">
+    <div class="modal-header">
+        <h5 class="modal-title">{{modal_title}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="container-fluid">
+            <div class="row">
+
+                {% block fields %}
+                {% endblock fields %}
+
+                {% if form.non_field_errors %}
+                    <div class="invalid-feedback d-block" style="font-size: larger">{{ form.non_field_errors }}</div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        {% translate "Cancel" %}
+        </button>
+
+        <button id="modal-save-button" type="submit" class="btn btn-primary">{% translate "Save" %}</button>
+    </div>
+</form>

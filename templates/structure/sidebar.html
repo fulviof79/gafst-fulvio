@@ -1,0 +1,155 @@
+{% load static %}
+{% load i18n %}
+{% load l10n %}
+<!-- ----- Sidebar ----- -->
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'home' %}">
+                <i class="bi bi-house-door-fill me-2"></i>
+                <span>{% translate "Home" %}</span>
+            </a>
+        </li>
+
+        <li class="nav-heading">
+            {% if perms.core.club_admin_permissions %}
+
+                {% translate "FSTBCompetitions" %}
+
+            {% elif perms.core.club_admin_permissions %}
+
+                {{ logged_in_user_member_club }} {% translate "Competitions" %}
+
+            {% endif %}
+        </li>
+
+
+
+        {% if perms.core.club_admin_permissions %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'competition_registrations_view' %}">
+                <i class="bi bi-person-vcard"></i>
+                <span>{% translate "Subscription management" %}</span>
+            </a>
+        </li>
+        {% endif %}
+
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'competitions_open_view' %}">
+                <i class="fa-solid fa-ranking-star me-2"></i>
+                <span>{% translate "Open competitions" %}</span>
+            </a>
+        </li>
+
+    {% if perms.core.fstb_admin_permissions %}
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'competitions_view' %}">
+                <i class="fa-solid fa-medal me-2"></i>
+                <span>{% translate "Competitions configuration" %}</span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% if perms.core.fstb_admin_permissions %}
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'disciplines_view' %}">
+                <i class="me-4"></i>
+                <span style="font-size: 0.75rem">{% translate "Disciplines" %}</span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% if perms.core.fstb_admin_permissions %}
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'divisions_view' %}">
+                <i class="me-4"></i>
+                <span style="font-size: 0.75rem">{% translate "Division" %}</span>
+            </a>
+        </li>
+        {% endif %}
+
+      {% if perms.core.fstb_admin_permissions %}
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'year_rules_view' %}">
+                <i class="me-4"></i>
+                <span style="font-size: 0.75rem">{% translate "Age rules" %}</span>
+            </a>
+        </li>
+        {% endif %}
+
+
+        <li class="nav-heading">
+            {% if perms.core.fstb_admin_permissions %}
+
+                {% translate "FSTB Admin" %}
+
+            {% elif perms.core.club_admin_permissions %}
+
+                {{ logged_in_user_member_club }} {% translate "Club Admin" %}
+
+            {% endif %}
+        </li>
+
+
+        {% if perms.core.club_admin_permissions %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'members_view' %}">
+                <i class="bi bi-people-fill me-2"></i>
+                <span>{% translate "Members" %}</span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% if perms.core.fstb_admin_permissions %}
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'clubs_view' %}">
+                <i class="bi bi-building-fill"></i>
+                <span>{% translate "Clubs" %}</span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% if perms.core.fstb_admin_permissions %}
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'memberships_view' %}">
+                <i class="bi bi-person-vcard"></i>
+                <span>{% translate "Memberships" %}</span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% if perms.core.fstb_admin_permissions %}
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'roles_view' %}">
+                <i class="bi bi-person-fill-gear"></i>
+                <span>{% translate "Roles" %}</span>
+            </a>
+        </li>
+        {% endif %}
+
+    {% if perms.core.fstb_admin_permissions %}
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'valid_competition_registrations_view' %}">
+                <i class="bi bi-person-vcard"></i>
+                <span>{% translate "Competition subscriptions" %}</span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% if perms.core.club_admin_permissions %}
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'teams_view' %}">
+                <i class="fa-solid fa-people-group me-2"></i>
+                <span>{% translate "Teams" %}</span>
+            </a>
+        </li>
+        {% endif %}
+
+    </ul>
+
+</aside>
+<!-- ----- END Sidebar ----- -->

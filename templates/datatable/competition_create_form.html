@@ -1,0 +1,18 @@
+{% extends 'datatable/structure/create_form.html' %}
+{% load widget_tweaks %}
+
+{% block fields %}
+    {% with WIDGET_ERROR_CLASS='is-invalid' input_template="datatable/structure/input_field.html" css_classes="form-control"%}
+
+        {% include input_template with field=form.name css_classes="form-control" input_placeholder="Swiss Championship" container_ccs_classes="col-12 col-lg-6" %}
+
+        {% include input_template with field=form.due_date css_classes="form-control h-25" container_ccs_classes="col-12 col-lg-6" %}
+
+        {% include input_template with field=form.status css_classes="form-control h-25" container_ccs_classes="col-12 col-lg-6" %}
+
+        {% include input_template with field=form.disciplines css_classes="form-check-input" %}
+
+        {% include input_template with field=form.description css_classes="form-control h-25" %}
+
+    {% endwith %}
+{% endblock fields %}

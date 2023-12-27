@@ -1,0 +1,10 @@
+{% load widget_tweaks %}
+<div class="{{container_ccs_classes}}">
+    <div class="mb-3">
+        <p id="{{ label_id }}" class="form-label mb-1">{{ field.label }}</p>
+
+        {% render_field field id=input_id class=css_classes placeholder=input_placeholder %}
+
+        <div class="invalid-feedback">{{ field.errors }}</div>
+    </div>
+</div>

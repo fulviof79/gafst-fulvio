@@ -1,0 +1,21 @@
+{% extends 'datatable/structure/create_form.html' %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block fields %}
+
+        {% with WIDGET_ERROR_CLASS='is-invalid' input_template="datatable/structure/input_field.html" css_classes="form-control" input_placeholder=None container_ccs_classes="col-12" %}
+
+            {% include input_template with field=form.name input_placeholder="18+" container_ccs_classes="col-12 col-lg-12" %}
+
+            {% include input_template with field=form.option container_ccs_classes="col-12 col-lg-4" %}
+
+            {% include input_template with field=form.condition container_ccs_classes="col-12 col-lg-4" %}
+
+            {% include input_template with field=form.value container_ccs_classes="col-12 col-lg-4" %}
+
+            {% include input_template with field=form.description input_placeholder=""  %}
+
+        {% endwith %}
+
+{% endblock fields %}

@@ -1,0 +1,11 @@
+{% load i18n %}
+
+{% if rules  %}
+    <div class="alert alert-warning" role="alert" id="warning-message" style="display: flex; flex-direction: column; gap: 1em;">
+        <span>{% translate "Warning: selected team does not respect the following rules: " %}</span>
+        {% for rule in rules %}
+            <span>{% translate rule %}</span>
+        {% endfor %}
+        <span>{% translate "Submitting the form the registration will be saved with a status equal to DRAFT" %}</span>
+    </div>
+{% endif %}

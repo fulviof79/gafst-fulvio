@@ -1,0 +1,110 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}" data-bs-theme="light">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Peter Catania">
+
+    <title>{% block title %} Title {% endblock %}</title>
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'css/bootstap5.3/bootstrap.min.css' %}" rel="stylesheet" crossorigin="anonymous">
+    <link href="{% static 'css/datatables1.13.4/datatables.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-icons1.10.5/bootstrap-icons.css' %}">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="{% static 'img/favicons/apple-touch-icon.png' %}" sizes="180x180">
+    <link rel="icon" href="{% static 'img/favicons/favicon-32x32.png' %}" sizes="32x32" type="image/png">
+    <link rel="icon" href="{% static 'img/favicons/favicon-16x16.png' %}" sizes="16x16" type="image/png">
+    <link rel="manifest" href="{% static 'img/favicons/manifest.json' %}">
+    <link rel="mask-icon" href="{% static 'img/favicons/safari-pinned-tab.svg' %}" color="#712cf9">
+    <link rel="icon" href="{% static 'brand/FSTB-logo.svg' %}">
+    <meta name="theme-color" content="#712cf9">
+
+    <!-- fontawesomefree -->
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/svg-with-js.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    {% block custom_styles %}{% endblock %}
+</head>
+
+<body class="{% block body_css_classes %}d-flex align-items-center py-4{% endblock body_css_classes %}">
+
+    <!-- ----- Header Section ----- -->
+    {% block header_section %}
+        {% include "structure/header.html" %}
+        {% include "structure/sidebar.html" %}
+    {% endblock header_section %}
+    <!-- ----- END Header Section ----- -->
+
+    <!-- ----- Body ----- -->
+    {% block body %}
+        <!-- ----- Page Content ----- -->
+        <main id="content" class="container">
+            {% block content %}
+            {% endblock content %}
+        </main>
+        <!-- ----- End Page Content ----- -->
+    {% endblock body %}
+    <!-- ----- END Body ----- -->
+
+    <!-- Edit or create Modal -->
+    <div id="modal" class="modal fade">
+        <div id="dialog" class="modal-dialog modal-lg modal-fullscreen-md-down" hx-target="this">
+
+        </div>
+    </div>
+    <!-- END Edit or create Modal -->
+
+    <!-- Empty toast to show the message -->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="toast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div id="toast-body" class="toast-body">
+
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        </div>
+    </div>
+    <!-- ----- END toast ----- -->
+
+    <!-- ----- Footer Section ----- -->
+    {% block footer_section %}
+    {% endblock footer_section %}
+    <!-- ----- END Section ----- -->
+
+    <!-- Scripts -->
+    <!-- django js translations -->
+    <script src="{% url 'javascript-catalog' %}"></script>
+
+    <!-- bootstrap -->
+    <script src="{% static 'js/bootstap5.3/bootstrap.bundle.min.js' %}"
+        crossorigin="anonymous">
+    </script>
+
+    <!-- htmx -->
+    <script src="{% static '/js/htmx1.9.2/htmx.min.js' %}"></script>
+    <script src="{% static '/js/htmx1.9.2/remove-me.js' %}"></script>
+
+    <!-- datatables -->
+    <script src="{% static '/js/datatables1.13.4/datatables.min.js' %}"></script>
+
+    <!-- fontawesomefree -->
+    <script src="{% static 'fontawesomefree/js/fontawesome.js' %}"></script>
+    <script src="{% static 'fontawesomefree/js/solid.js' %}"></script>
+    <script src="{% static 'fontawesomefree/js/brands.js' %}"></script>
+
+    <script src="{% static '/js/main.js' %}"></script>
+
+    {% block custom_js %}{% endblock %}
+    <!-- ----- END Scripts ----- -->
+</body>

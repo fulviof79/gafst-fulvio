@@ -1,0 +1,89 @@
+{% load flag_emoji %}
+{% load static %}
+{% load i18n %}
+{% load l10n %}
+<!-- ----- Header ----- -->
+<header class="fixed-top bg-white header">
+    <div class="navbar">
+        <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 50px 1fr 2fr;">
+            <button id="toggle-button-sidebar" type="button" class="btn btn-secondary toggle-sidebar-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                </svg>
+            </button>
+
+            <div class="dropdown">
+                <a href="#"
+                    class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-body-emphasis text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <img class="me-2" src="{% static 'brand/FSTB-logo.svg' %}" alt="FSTB-logo" width="40"
+                         height="40">
+                    <strong class="header-title">
+                        {% if perms.core.fstb_admin_permissions %}
+
+                            {% translate "FSTB Admin" %}
+
+                        {% elif perms.core.club_admin_permissions %}
+
+                            {{ logged_in_user_member_club }} {% translate "Club Admin" %}
+
+                        {% endif %}
+                    </strong>
+                </a>
+                <ul class="dropdown-menu text-small shadow">
+                    <li><a class="dropdown-item" href="{% url 'home' %}">Home</a></li>
+                </ul>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <div class="w-100 me-3">
+                </div>
+
+                <select class="form-select width-fit-content me-3" name="language" onchange="changeLanguage(this)">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                            {{ language.code|slice:":2"|flag_emoji }} {{ language.name_local }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <div class="flex-shrink-0 dropdown">
+                    <a href="#" class=" link-body-emphasis text-decoration-none dropdown-toggle float-start"
+                        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                        {% if user.is_authenticated and logged_in_user_member and logged_in_user_member.photo %}
+
+                            <div class="image-circle float-start">
+                                <img src="{{ logged_in_user_member.photo.url }}" alt="profile picture">
+                            </div>
+
+                        {% else %}
+
+                            <img src="{% static '/img/user.svg' %}" alt="profile picture" width="32" height="32"
+                                 class="rounded-circle">
+
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end text-small shadow">
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        {% if user.is_authenticated %}
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">{% translate "Logout" %}</a></li>
+                        {% else %}
+                        <li><a class="dropdown-item" href="{% url 'login' %}">{% translate "Login" %}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'register' %}">{% translate "Register" %}</a></li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ----- END Header ----- -->

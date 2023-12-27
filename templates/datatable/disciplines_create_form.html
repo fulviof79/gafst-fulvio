@@ -1,0 +1,21 @@
+{% extends 'datatable/structure/create_form.html' %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block fields %}
+
+        {% with WIDGET_ERROR_CLASS='is-invalid' input_template="datatable/structure/input_field.html" css_classes="form-control" input_placeholder=None container_ccs_classes="col-12" %}
+
+            {% include input_template with field=form.name input_placeholder="Freestyle" container_ccs_classes="col-12 col-lg-12" %}
+
+            {% include input_template with field=form.competition container_ccs_classes="col-12 col-lg-6" %}
+
+            {% include input_template with field=form.description input_placeholder=""  %}
+
+            {% include input_template with field=form.min_members_number input_placeholder="1" container_ccs_classes="col-12 col-lg-4" %}
+
+            {% include input_template with field=form.max_members_number input_placeholder="6" container_ccs_classes="col-12 col-lg-4" %}
+
+        {% endwith %}
+
+{% endblock fields %}

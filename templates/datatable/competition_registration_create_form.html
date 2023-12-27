@@ -1,0 +1,45 @@
+{% extends 'datatable/structure/registration_create_form.html' %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block fields %}
+    {% with WIDGET_ERROR_CLASS='is-invalid' %}
+        <div class="alert alert-warning" role="alert" id="warning-submit-message">
+            <span>{% translate "Warning: saving definitively this form, it will no longer be possible to make changes to the registration and the registered team" %}</span>
+        </div>
+
+        {% include "datatable/structure/input_field.html" with field=form.competition css_classes="form-control h-25 competition-select" label_id="mandatory-select" container_ccs_classes="col-12" %}
+
+        {% if form.discipline.field.choices  %}
+            {% include "datatable/structure/input_field.html" with field=form.discipline css_classes="form-control h-25" label_id="mandatory-select"  container_ccs_classes="col-12" %}
+        {% else %}
+            <div id="discipline_container" class="col-12">
+                <div class="invalid-feedback d-block">{{ form.discipline.errors }}</div>
+            </div>
+        {% endif %}
+
+        {% if form.division.field.choices  %}
+            {% include "datatable/structure/input_field.html" with field=form.division css_classes="form-control h-25" label_id="mandatory-select"  container_ccs_classes="col-12" %}
+        {% else %}
+            <div id="division_container" class="col-12">
+                <div class="invalid-feedback d-block">{{ form.division.errors }}</div>
+            </div>
+        {% endif %}
+
+        <hr>
+
+        {% if is_update %}
+            {% include "datatable/structure/input_field.html" with field=form.club css_classes="form-control h-25" container_ccs_classes="col-12 col-lg-6" %}
+        {% endif %}
+
+        {% include "datatable/structure/input_field.html" with field=form.team css_classes="form-control h-25" container_ccs_classes="col-12 col-lg-6" %}
+
+        {% include "datatable/structure/input_field.html" with field=form.status css_classes="form-control h-25" container_ccs_classes="col-12 col-lg-6" %}
+
+        <hr>
+
+        <div id="registration-warning-container" class="col-12">
+        </div>
+
+    {% endwith %}
+{% endblock fields %}

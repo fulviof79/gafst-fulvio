@@ -1,0 +1,63 @@
+{% extends 'structure/page_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% translate "Register" %}{% endblock %}
+
+{% block header_section %}
+{% endblock header_section %}
+
+{% block body_css_classes %}d-flex align-items-center m-0 p-0{% endblock body_css_classes %}
+
+{% block content %}
+<main class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-5">
+            <div class="card mb-3 custom-card mt-5">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <h1 class="h2 mb-3 fw-bolder"> {% translate "Register" %} </h1>
+
+                        {% with WIDGET_ERROR_CLASS='is-invalid' %}
+
+                        {{ form.non_field_errors }}
+
+                        <div class="form-floating mb-3">
+                            {% render_field form.username class="form-control" placeholder="{{form.username.label}" %}
+                            <label for="{{ form.username.auto_id }}"> {{form.username.label}}  </label>
+
+                            <div class="invalid-feedback">
+                                {{ form.username.errors }}
+                            </div>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            {% render_field form.password1 type="password" class="form-control" placeholder="{{form.password1.label}}" %}
+                            <label for="{{ form.password1.auto_id }}"> {{form.password1.label}} </label>
+
+                            <div class="invalid-feedback">
+                                {{ form.password1.errors }}
+                            </div>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            {% render_field form.password2 type="password" class="form-control" placeholder="{{form.password2.label}}" %}
+                            <label for="{{ form.password2.auto_id }}"> {{form.password2.label}} </label>
+
+                            <div class="invalid-feedback">
+                                {{ form.password2.errors }}
+                            </div>
+                        </div>
+
+                        {% endwith %}
+
+                        <button class="btn btn-primary w-100 py-2" type="submit"> {% translate "Submit" %} </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

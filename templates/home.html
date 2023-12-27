@@ -1,0 +1,49 @@
+{% extends "structure/page_base.html" %}
+{% load i18n %}
+{% load l10n %}
+
+{% block title %}{% translate "Home" %}{% endblock %}
+
+{% block content %}
+
+    {% if not perms.core.club_admin_permissions %}
+    <div class="row justify-content-center mb-3">
+        <div class="col-12 ">
+            <div class="card">
+                <div class="card-body">
+
+                    <p class="important_info_p display-6"> {% translate "At this time you have not been added to administration or club administration, to request access contact an FSTB Admin" %} </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-12 ">
+            <div class="card p-2">
+                <div class="card-header bg-white border-bottom-0">
+                    <div class="row justify-content-md-end">
+                        <div class="col align-bottom">
+                            <h1 class="align-bottom my-0"> {% translate "Home" %} </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <h5> {% translate "Welcome on the" %}
+                        {% if perms.core.fstb_admin_permissions %}
+                            {% translate "Club Admin" %}
+                        {% else %}
+                            {% translate "FSTB Admin" %}
+                        {% endif %}
+                    </h5>
+                    <p> {% translate "Here you can manage all the information of every club" %} </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

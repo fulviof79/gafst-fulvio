@@ -1,0 +1,17 @@
+{% extends 'datatable/structure/confirm_modal.html' %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block message %}
+
+        <div>
+            <h2>{% translate "The team does not satisfies all the required rules for the competition subscription." %}</h2>
+            <span>{% translate "In particular:" %}</span>
+            <ul>
+                {% for rule in rules %}
+                    <li>rule.name</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+{% endblock message %}

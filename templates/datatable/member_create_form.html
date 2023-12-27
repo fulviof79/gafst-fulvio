@@ -1,0 +1,53 @@
+{% extends 'datatable/structure/create_form.html' %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block fields %}
+    {% with WIDGET_ERROR_CLASS='is-invalid' input_template="datatable/structure/input_field.html" css_classes="form-control" input_placeholder=None container_ccs_classes="col-12" %}
+
+        {% include input_template with field=form.club_select css_classes="form-control" container_ccs_classes="col-12 col-lg-6" %}
+
+        {% if form.license_no.field.choices  %}
+            {% include input_template with field=form.license_no container_ccs_classes="col-12 col-lg-6" %}
+        {% else %}
+            <div id="license_no_container" class="col-12 col-lg-6">
+                <div class="invalid-feedback d-block">{{ form.license_no.errors }}</div>
+            </div>
+        {% endif %}
+
+        <hr>
+
+        {% include input_template with field=form.photo %}
+
+        {% include input_template with field=form.name input_placeholder="Mario" container_ccs_classes="col-12 col-lg-6" %}
+        
+        {% include input_template with field=form.surname input_placeholder="Botti" container_ccs_classes="col-12 col-lg-6" %}
+
+        {% include input_template with field=form.street input_placeholder="Via Augusto Ottavo" container_ccs_classes="col-12 col-lg-6" %}
+
+        {% include input_template with field=form.house_number input_placeholder="12" container_ccs_classes="col-12 col-lg-6" %}
+
+        {% include input_template with field=form.city input_placeholder="Losanna" container_ccs_classes="col-12 col-lg-6" %}
+
+        {% include input_template with field=form.zip_code input_placeholder="6600" container_ccs_classes="col-12 col-lg-6" %}
+
+        {% include input_template with field=form.date_of_birth container_ccs_classes="col-12 col-lg-6" %}
+
+        {% include input_template with field=form.nationality container_ccs_classes="col-12 col-lg-6" %}
+
+        {% include input_template with field=form.affiliation_year input_placeholder="2017" container_ccs_classes="col-12 col-lg-6" %}
+
+        {% include input_template with field=form.roles css_classes="form-check-input" %}
+
+        {% include input_template with field=form.exams css_classes="form-check-input" container_ccs_classes="col-12 col-lg-6" %}
+
+        {% include input_template with field=form.js css_classes="form-check-input" container_ccs_classes="col-12 col-lg-6" %}
+
+        {% if perms.core.fstb_admin_permissions %}
+            <hr>
+            {% include input_template with field=form.user_select container_ccs_classes="col-12 col-lg-6" %}
+            {% include input_template with field=form.group_select container_ccs_classes="col-12 col-lg-6" %}
+        {% endif %}
+
+    {% endwith %}
+{% endblock fields %}

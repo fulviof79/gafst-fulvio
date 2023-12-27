@@ -1,0 +1,25 @@
+{% extends "structure/page_base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Members" %}{% endblock %}
+
+{% block content %}
+
+    {% comment %}
+        template variables:
+            card_title, (required)
+            card_body_url, (required)
+            list_changed_event, (required)
+            row_css_classes, (optional)
+    {% endcomment %}
+    {% with row_css_classes=None %}
+        {% include "admin/structure/card.html"%}
+    {% endwith %}
+
+    {% if perms.core.fstb_admin_permissions %}
+        {% with card_title=member_changes_card_title card_body_url=member_changes_url list_changed_event=member_changes_list_changed_event row_css_classes="mt-3" %}
+            {% include "admin/structure/card.html" %}
+        {% endwith %}
+    {% endif %}
+
+{% endblock content %}

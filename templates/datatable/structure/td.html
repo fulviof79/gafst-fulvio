@@ -1,0 +1,25 @@
+{% load i18n %}
+{% load l10n %}
+{% csrf_token %}
+
+<td class="px-3 {{td_classes}}" >
+   {% if data %}
+       <div style="display: flex; align-items: center; gap: 1em">
+       {{ data }}
+       {% if warning %}
+           <div style="color: goldenrod">
+            {% include "datatable/structure/warning_badge.html" %}
+           </div>
+       {% endif %}
+       </div>
+   {% else %}
+       <div style="display: flex; align-items: center; gap: 1em">
+       {% include "datatable/structure/info_badge.html" with text=_("none") type="secondary" %}
+       {% if warning %}
+           <div style="color: goldenrod">
+            {% include "datatable/structure/warning_badge.html" %}
+           </div>
+       {% endif %}
+       </div>
+   {% endif %}
+</td>

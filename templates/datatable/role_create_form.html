@@ -1,0 +1,10 @@
+{% extends 'datatable/structure/create_form.html' %}
+{% load widget_tweaks %}
+
+{% block fields %}
+    {% with WIDGET_ERROR_CLASS='is-invalid' input_template="datatable/structure/input_field.html" css_classes="form-control" input_placeholder=None container_ccs_classes="col-12" %}
+
+        {% include input_template with field=form.name input_placeholder="Athlète" container_ccs_classes="col-12 col-lg-6" %}
+
+    {% endwith %}
+{% endblock fields %}

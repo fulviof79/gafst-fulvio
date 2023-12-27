@@ -1,0 +1,19 @@
+{% extends 'datatable/structure/create_form.html' %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block fields %}
+    {% with WIDGET_ERROR_CLASS='is-invalid' input_template="datatable/structure/input_field.html" css_classes="form-control" input_placeholder=None container_ccs_classes="col-12" %}
+
+        <h5 class="border-bottom"> {% translate "Member" %}: <b>{{member}}</b></h5>
+
+        <div id="club_select_container">
+            {% include "datatable/structure/input_field.html" with field=form.club_select css_classes="form-control" %}
+        </div>
+
+        <div id="license_no_container">
+            <div class="invalid-feedback d-block">{{ form.license_no.errors }}</div>
+        </div>
+            
+    {% endwith %}
+{% endblock fields %}

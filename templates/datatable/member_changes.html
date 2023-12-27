@@ -1,0 +1,187 @@
+{% extends "datatable/structure/table.html" %}
+{% load i18n %}
+{% load l10n %}
+
+{% block thead %}
+    {% with th_template="datatable/structure/th.html" %}
+
+        {% include th_template with priority=2 label=_("Member Id") %}
+        {% include th_template with priority=2 label=_("Name") %}
+        {% include th_template with priority=2 label=_("Surname") %}
+        {% include th_template with priority=2 label=_("Role") %}
+        {% include th_template with priority=2 label=_("Club") %}
+        {% include th_template with priority=10001 label=_("Street") %}
+        {% include th_template with priority=10001 label=_("House Number") %}
+        {% include th_template with priority=10001 label=_("City") %}
+        {% include th_template with priority=10001 label=_("Zip Code") %}
+        {% include th_template with priority=2 label=_("Date of Birth") %}
+        {% include th_template with priority=10001 label=_("Nationality") %}
+        {% include th_template with priority=10001 label=_("Affiliation Year") %}
+        {% include th_template with priority=10001 label=_("Passed Exams") %}
+        {% include th_template with priority=10001 label=_("J+S") %}
+        {% include th_template with priority=10001 label=_("Photo") %}
+        {% include th_template with priority=10001 label=_("Applicant") %}
+        {% include th_template with priority=10001 label=_("Created At") %}
+
+    {% endwith %}
+{% endblock %}
+
+{% block tbody %}
+    {% with td_template="datatable/structure/td.html" td_classes="changed-text" %}
+
+        {% if object.member %}
+
+
+            {% include td_template with data=object.member.id td_classes="" %}
+
+            {% if object.name == object.member.name %}
+                {% include td_template with data=object.name td_classes="" %}
+            {% else %}
+                {% include td_template with data=object.name %}
+            {% endif %}
+
+            {% if object.surname == object.member.surname %}
+                {% include td_template with data=object.surname td_classes="" %}
+            {% else %}
+                {% include td_template with data=object.surname %}
+            {% endif %}
+
+            {% if object.roles.all|join:" " == object.member.roles.all|join:" " %}
+                {% include td_template with data=object.roles.all|join:", " td_classes="" %}
+            {% else %}
+                {% include td_template with data=object.roles.all|join:", " %}
+            {% endif %}
+
+            {% if object.current_membership %}
+                {% include td_template with data=object.current_membership.club td_classes="" %}
+            {% else %}
+                {% include td_template with td_classes="" %}
+            {% endif %}
+
+            {% if object.street == object.member.street %}
+                {% include td_template with data=object.street td_classes="" %}
+            {% else %}
+                {% include td_template with data=object.street %}
+            {% endif %}
+
+            {% if object.house_number == object.member.house_number %}
+                {% include td_template with data=object.house_number td_classes="" %}
+            {% else %}
+                {% include td_template with data=object.house_number %}
+            {% endif %}
+
+            {% if object.city == object.member.city %}
+                {% include td_template with data=object.city td_classes="" %}
+            {% else %}
+                {% include td_template with data=object.city %}
+            {% endif %}
+
+            {% if object.zip_code == object.member.zip_code %}
+                {% include td_template with data=object.zip_code td_classes="" %}
+            {% else %}
+                {% include td_template with data=object.zip_code %}
+            {% endif %}
+
+            {% if object.date_of_birth == object.member.date_of_birth %}
+                {% include td_template with data=object.date_of_birth td_classes="" %}
+            {% else %}
+                {% include td_template with data=object.date_of_birth %}
+            {% endif %}
+
+            {% if object.nationality == object.member.nationality %}
+                {% include td_template with data=object.nationality td_classes="" %}
+            {% else %}
+                {% include td_template with data=object.nationality %}
+            {% endif %}
+
+            {% if object.affiliation_year == object.member.affiliation_year %}
+                {% include td_template with data=object.affiliation_year td_classes="" %}
+            {% else %}
+                {% include td_template with data=object.affiliation_year %}
+            {% endif %}
+
+            {% if object.exams.all|join:" " == object.member.exams.all|join:" " %}
+                {% include td_template with data=object.exams.all|join:", " td_classes="" %}
+            {% else %}
+                {% include td_template with data=object.exams.all|join:", " %}
+            {% endif %}
+
+            {% if object.js.all|join:" " == object.member.js.all|join:" " %}
+                {% include td_template with data=object.js.all|join:", " td_classes="" %}
+            {% else %}
+                {% include td_template with data=object.js.all|join:", " %}
+            {% endif %}
+
+            <td class="px-3" >
+               {% if object.photo %}
+                   <img style="max-width:100px;" src="{{ object.photo.url }}" alt="Photo of Member {{ object.id }}">
+               {% else %}
+                   {% include "datatable/structure/info_badge.html" with text=_("none") type="secondary" %}
+               {% endif %}
+            </td>
+
+            {% include td_template with data=object.applicant td_classes="" %}
+            {% include td_template with data=object.created_at td_classes="" %}
+
+        {% else %}
+
+            {% if object.member %}
+                {% include td_template with data=object.member.id td_classes="" %}
+            {% else %}
+                {% include td_template %}
+            {% endif %}
+
+
+            {% include td_template with data=object.name %}
+            {% include td_template with data=object.surname %}
+            {% include td_template with data=object.roles.all|join:", " %}
+
+            {% if object.current_membership %}
+                {% include td_template with data=object.current_membership.club %}
+            {% else %}
+                {% include td_template %}
+            {% endif %}
+
+            {% include td_template with data=object.street %}
+            {% include td_template with data=object.house_number %}
+            {% include td_template with data=object.city %}
+            {% include td_template with data=object.zip_code %}
+            {% include td_template with data=object.date_of_birth %}
+            {% include td_template with data=object.nationality %}
+            {% include td_template with data=object.affiliation_year %}
+            {% include td_template with data=object.exams.all|join:", " %}
+            {% include td_template with data=object.js.all|join:", " %}
+
+            <td class="px-3" >
+               {% if object.photo %}
+                   <img style="max-width:100px;" src="{{ object.photo.url }}" alt="Photo of Member {{ object.id }}">
+               {% else %}
+                   {% include "datatable/structure/info_badge.html" with text=_("none") type="secondary" %}
+               {% endif %}
+            </td>
+
+            {% include td_template with data=object.applicant td_classes="" %}
+            {% include td_template with data=object.created_at td_classes="" %}
+
+        {% endif %}
+
+
+    {% endwith %}
+{% endblock %}
+
+{% block actions_buttons %}
+    <button hx-post="{% url member_change_decline_url pk=object.pk %}" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' type="button" class="btn btn-danger btn-sm ms-2 my-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+        </svg>
+    </button>
+
+    <button hx-post="{% url member_change_approve_url pk=object.pk %}" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' type="button" class="btn btn-success btn-sm ms-2 my-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+          <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+        </svg>
+    </button>
+{% endblock %}
+
+{% block addButton %}
+{% endblock %}

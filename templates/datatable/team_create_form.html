@@ -1,0 +1,25 @@
+{% extends 'datatable/structure/create_form.html' %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block fields %}
+
+        {% with WIDGET_ERROR_CLASS='is-invalid' input_template="datatable/structure/input_field.html" css_classes="form-control" input_placeholder=None container_ccs_classes="col-12" %}
+
+            {% include input_template with field=form.club container_ccs_classes="col-12 col-lg-6" %}
+
+            {% include input_template with field=form.name input_placeholder="Alpha" container_ccs_classes="col-12 col-lg-6" %}
+
+            {% include input_template with field=form.photo %}
+
+            {% include input_template with field=form.members css_classes="form-check-input" %}
+
+            {% include input_template with field=form.description input_placeholder=""  %}
+
+        {% endwith %}
+
+{#        <div class="alert alert-warning" role="alert" id="warning-message">#}
+{#            {% translate "Minimum team member count warning message" %}#}
+{#        </div>#}
+
+{% endblock fields %}

@@ -90,6 +90,7 @@ class RuleCondition(Enum):
     EQUAL = 'Equal'
     NOT_EQUAL = 'NotEqual'
     AVERAGE_EQUAL_TO = 'AverageEqualTo'
+    AVERAGE_LESS_THAN = 'AverageLessThan'
 
     @classmethod
     def choices(cls):

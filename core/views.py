@@ -1,6 +1,6 @@
 # ----- generic imports ---------------------------------------------------------
 import json
-
+import pprint
 from django import forms
 
 # ----- django imports ----------------------------------------------------------
@@ -244,7 +244,7 @@ class MembersCardsView(AdminLoginRequiredMixin, CardTemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["member_changes_card_title"] = _("Member Changes")
+        context["member_changes_card_title"] = _("Pending Members") #Member Changes
         context["member_changes_url"] = reverse_lazy("members_changes")
         context["member_changes_list_changed_event"] = CHANGED_EVENT.format(
             MemberChange.__name__.lower()
@@ -256,7 +256,7 @@ class MembersCardsView(AdminLoginRequiredMixin, CardTemplateView):
 class MemberListView(AdminLoginRequiredMixin, DatatableListView):
     model = Member
     template_name = "datatable/member.html"
-
+    
     def get_queryset(self):
         logged_user = self.request.user
         if is_user_fstb_admin(logged_user):
@@ -606,44 +606,47 @@ class MemberUpdateView(AdminLoginRequiredMixin, FormView):
 
 
 # ----- Member Change Views ---------------------------------------------------
+    #TODO: FULVIO
 class MemberChangesListView(AdminLoginRequiredMixin, ListView):
     model = MemberChange
     template_name = "datatable/member_changes.html"
 
     def get_queryset(self):
+        # print("MCL",MemberChange.objects.filter(status=ChangeModelStatus.PENDING.value).distinct().values())
         logged_user = self.request.user
         if is_user_fstb_admin(logged_user):
             member_change_unique_members = (
-                MemberChange.objects.filter(status=ChangeModelStatus.PENDING.value)
-                .values("member")
-                .distinct()
+                MemberChange.objects.filter(status=ChangeModelStatus.PENDING.value).distinct()#.values("member")
             )
-
+            # print("Unique list", member_change_unique_members)
             members = []
             for member in member_change_unique_members:
-                members.append(
-                    MemberChange.objects.order_by("-created_at")
-                    .filter(member=member["member"])
-                    .first()
+                
+                members.append(member
+                    # MemberChange.objects.order_by("-created_at")
+                    # .filter(member=member["member"])
+                    # .first()
                 )
-
+            # print("Actual return ", members)
             return members
 
-        # else:
-        #     club_to_admin = get_user_club(logged_user)
+        else:
+            club_to_admin = get_user_club(logged_user)
         #
-        #     members_changes_memberships_changes = MemberChange.objects.filter(
-        #         membership_change__club=club_to_admin,
-        #         membership_change__transfer_date__isnull=True,
-        #     )
+            members_changes_memberships_changes = MemberChange.objects.filter(
+                membership_change__club=club_to_admin,
+                status=ChangeModelStatus.PENDING.value,
+                membership_change__transfer_date__isnull=True,
+            )
+            members=[]
+            for member in members_changes_memberships_changes:
+                members.append(member)
+            return members
         #
-        #     members_changes_memberships = MemberChange.objects.filter(
-        #         membership_set__club=club_to_admin,
-        #         membership_set__transfer_date__isnull=True,
-        #     )
+    
         #
         #     return members_changes_memberships_changes | members_changes_memberships
-
+    #END TODO FULVIO
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -654,6 +657,23 @@ class MemberChangesListView(AdminLoginRequiredMixin, ListView):
         return context
 
 
+#TODO FULVIO
+class MemberChangesCardView(AdminLoginRequiredMixin, CardTemplateView):
+    pass
+#     model = MemberChange
+#     template_name ="admin/cards/member_changes.html"
+#     card_title = _("Pending Members")
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context["member_changes_card_title"] = _("Pending Members") #Member Changes
+#         context["member_changes_url"] = reverse_lazy("members_changes")
+#         context["member_changes_list_changed_event"] = CHANGED_EVENT.format(
+#             MemberChange.__name__.lower()
+#         )
+
+#         return context
+    
 class MemberChangeApproveView(FstbAdminLoginRequiredMixin, View):
     model = MemberChange
 

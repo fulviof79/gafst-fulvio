@@ -33,7 +33,7 @@
                 <div class="card-body">
 
                     <h5> {% translate "Welcome on the" %}
-                        {% if perms.core.fstb_admin_permissions %}
+                        {% if not perms.core.fstb_admin_permissions %}
                             {% translate "Club Admin" %}
                         {% else %}
                             {% translate "FSTB Admin" %}

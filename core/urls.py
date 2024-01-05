@@ -20,6 +20,7 @@ from .views import (
     MemberChangesListView,
     MemberChangeApproveView,
     MemberChangeDeclineView,
+    MemberChangesCardView,
     # ----- Clubs -----------------------------------
     ClubListView,
     ClubsCardsView,
@@ -63,6 +64,7 @@ urlpatterns = [
     path("accounts/register/", RegisterView.as_view(), name="register"),
     path("accounts/login/", LoginView.as_view(), name="login"),
     path("accounts/logout/", LoginView.as_view(), name="logout"),
+    path("accounts/profile/", LoginView.as_view(), name="profile"),
     # ----- Members -------------------------------------------------------------
     path("members/view", MembersCardsView.as_view(), name="members_view"),
     path("members/", MemberListView.as_view(), name="members"),
@@ -79,15 +81,18 @@ urlpatterns = [
     path("memberships/view", MembershipsCardsView.as_view(), name="memberships_view"),
     path("memberships/", MembershipListView.as_view(), name="memberships"),
     path(
-        "memberschips/changes/", MemberChangesListView.as_view(), name="members_changes"
+        "memberships/changes/", MemberChangesListView.as_view(), name="members_changes"
+    ),
+     path(
+        "memberships/changes/view", MemberChangesCardView.as_view(), name="members_changes_view"
     ),
     path(
-        "memberschips/changes/<int:pk>/approve",
+        "memberships/changes/<int:pk>/approve",
         MemberChangeApproveView.as_view(),
         name="member_change_approve",
     ),
     path(
-        "memberschips/changes/<int:pk>/decline",
+        "memberships/changes/<int:pk>/decline",
         MemberChangeDeclineView.as_view(),
         name="member_change_decline",
     ),

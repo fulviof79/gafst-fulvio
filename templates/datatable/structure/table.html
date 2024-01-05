@@ -1,11 +1,24 @@
 {% load i18n %}
 {% load l10n %}
+
+<!-- TODO FULVIO: remove delete and add button for club_admin in pending -->
+
+<!-- {% if perms.core.club_admin_permissions and not perms.core.fstb_admin_permissions%}
+<h2>test</h2>
+{% endif %} -->
+
+
 <table id="{{ table_id }}" class="display nowrap table-striped compact responsive" style="width: 100%; border-spacing: 0 0;">
     <thead>
         <tr>
             <th class="ps-3"></th >
-            <th scope="col" style="padding-left: 20px; " data-priority="1">{% translate "Actions" %}</th>
-
+                
+                <!-- TODO FULVIO: remove delete and add button for club_admin in pending -->
+            {% if not perms.core.fstb_admin_permissions and table_id == "memberchange_list"%}
+            
+            {% else  %}
+                <th scope="col" style="padding-left: 20px; " data-priority="1">{% translate "Actions" %}</th>
+            {% endif %}
             {% block thead %}
             {% endblock %}
 
@@ -16,6 +29,10 @@
 
         <tr id="object_{{ object.id }}" >
             <td class="ps-3"></td>
+            <!-- TODO FULVIO: remove delete and add button for club_admin in pending -->
+            {% if not perms.core.fstb_admin_permissions and table_id == "memberchange_list"%}
+            
+            {% else  %}
             <td>
                 {% block actions_buttons %}
                 <button hx-post="{% url table_item_remove_url pk=object.pk %}" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' type="button" class="btn btn-danger btn-sm ms-2">
@@ -32,6 +49,7 @@
                 </button>
                 {% endblock %}
             </td>
+            {% endif %}
 
             {% block tbody %}
             {% endblock %}

@@ -13,7 +13,7 @@ locale/
 production_staticfiles/
 Scripts/
 share/
-staticfiles/
+
 bin/pip
 bin/pip3
 bin/pip3.8
